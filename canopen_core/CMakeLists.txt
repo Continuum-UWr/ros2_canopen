@@ -50,7 +50,7 @@ target_include_directories(node_canopen_driver PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   )
-ament_target_dependencies(node_canopen_driver 
+ament_target_dependencies(node_canopen_driver
   rclcpp
   rclcpp_lifecycle
   lely_core_libraries
@@ -70,7 +70,7 @@ target_include_directories(node_canopen_master PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   )
-ament_target_dependencies(node_canopen_master 
+ament_target_dependencies(node_canopen_master
   rclcpp
   rclcpp_lifecycle
   lely_core_libraries
@@ -92,7 +92,7 @@ target_include_directories(device_container PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   )
-ament_target_dependencies(device_container 
+ament_target_dependencies(device_container
   rclcpp
   rclcpp_lifecycle
   lely_core_libraries
