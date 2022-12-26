@@ -49,7 +49,7 @@ public:
    * @return true
    * @return false
    */
-  virtual bool enterModeAndWait(uint16_t mode) = 0;
+  virtual bool enterModeAndWait(int8_t mode) = 0;
 
   /**
    * @brief Check if Operation Mode is supported
@@ -58,14 +58,14 @@ public:
    * @return true
    * @return false
    */
-  virtual bool isModeSupported(uint16_t mode) = 0;
+  virtual bool isModeSupported(int8_t mode) = 0;
 
   /**
    * @brief Get current Mode
    *
-   * @return uint16_t
+   * @return int8_t
    */
-  virtual uint16_t getMode() = 0;
+  virtual int8_t getMode() = 0;
 
   /**
    * @brief Register default Operation Modes
