@@ -181,6 +181,16 @@ public:
     std::shared_ptr<ListNodes::Response> response) override;
 
   /**
+   * @brief Get the can master object
+   *
+   * @return std::shared_ptr<ros2_canopen::CanopenMasterInterface>
+   */
+  virtual std::shared_ptr<ros2_canopen::CanopenMasterInterface> get_can_master()
+  {
+    return can_master_;
+  }
+
+  /**
    * @brief Get the registered drivers object
    *
    * This function will return a map of all driver objects that were created.
