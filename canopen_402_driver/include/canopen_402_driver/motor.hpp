@@ -50,9 +50,9 @@ public:
   }
 
   virtual bool setTarget(double val);
-  virtual bool enterModeAndWait(int8_t mode);
-  virtual bool isModeSupported(int8_t mode);
-  virtual int8_t getMode();
+  virtual bool enterModeAndWait(uint16_t mode);
+  virtual bool isModeSupported(uint16_t mode);
+  virtual uint16_t getMode();
   bool readState();
 
   /**
@@ -128,7 +128,7 @@ public:
    * @return false
    */
   template <typename T, typename... Args>
-  bool registerMode(int8_t mode, Args &&... args)
+  bool registerMode(uint16_t mode, Args &&... args)
   {
     return mode_allocators_
       .insert(std::make_pair(
@@ -170,12 +170,12 @@ public:
   }
 
 private:
-  virtual bool isModeSupportedByDevice(int8_t mode);
-  void registerMode(int8_t id, const ModeSharedPtr & m);
+  virtual bool isModeSupportedByDevice(uint16_t mode);
+  void registerMode(uint16_t id, const ModeSharedPtr & m);
 
-  ModeSharedPtr allocMode(int8_t mode);
+  ModeSharedPtr allocMode(uint16_t mode);
 
-  bool switchMode(int8_t mode);
+  bool switchMode(uint16_t mode);
   bool switchState(const State402::InternalState & target);
 
   std::atomic<uint16_t> status_word_;
@@ -187,12 +187,12 @@ private:
   State402 state_handler_;
 
   std::mutex map_mutex_;
-  std::unordered_map<int8_t, ModeSharedPtr> modes_;
+  std::unordered_map<uint16_t, ModeSharedPtr> modes_;
   typedef std::function<void()> AllocFuncType;
-  std::unordered_map<int8_t, AllocFuncType> mode_allocators_;
+  std::unordered_map<uint16_t, AllocFuncType> mode_allocators_;
 
   ModeSharedPtr selected_mode_;
-  int8_t mode_id_;
+  uint16_t mode_id_;
   std::condition_variable mode_cond_;
   std::mutex mode_mutex_;
   const State402::InternalState switching_state_;

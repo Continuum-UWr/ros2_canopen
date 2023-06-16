@@ -10,21 +10,24 @@ bool Motor402::setTarget(double val)
   }
   return false;
 }
-bool Motor402::isModeSupported(int8_t mode) { return mode != MotorBase::Homing && allocMode(mode); }
+bool Motor402::isModeSupported(uint16_t mode)
+{
+  return mode != MotorBase::Homing && allocMode(mode);
+}
 
-bool Motor402::enterModeAndWait(int8_t mode)
+bool Motor402::enterModeAndWait(uint16_t mode)
 {
   bool okay = mode != MotorBase::Homing && switchMode(mode);
   return okay;
 }
 
-int8_t Motor402::getMode()
+uint16_t Motor402::getMode()
 {
   std::scoped_lock lock(mode_mutex_);
   return selected_mode_ ? selected_mode_->mode_id_ : (uint16_t)MotorBase::No_Mode;
 }
 
-bool Motor402::isModeSupportedByDevice(int8_t mode)
+bool Motor402::isModeSupportedByDevice(uint16_t mode)
 {
   uint32_t supported_modes =
     driver->universal_get_value<uint32_t>(supported_drive_modes_index, 0x0);
@@ -33,19 +36,19 @@ bool Motor402::isModeSupportedByDevice(int8_t mode)
   bool above_min = mode > 0;
   return below_max && above_min && supported;
 }
-void Motor402::registerMode(int8_t id, const ModeSharedPtr & m)
+void Motor402::registerMode(uint16_t id, const ModeSharedPtr & m)
 {
   std::scoped_lock map_lock(map_mutex_);
   if (m && m->mode_id_ == id) modes_.insert(std::make_pair(id, m));
 }
 
-ModeSharedPtr Motor402::allocMode(int8_t mode)
+ModeSharedPtr Motor402::allocMode(uint16_t mode)
 {
   ModeSharedPtr res;
   if (isModeSupportedByDevice(mode))
   {
     std::scoped_lock map_lock(map_mutex_);
-    std::unordered_map<int8_t, ModeSharedPtr>::iterator it = modes_.find(mode);
+    std::unordered_map<uint16_t, ModeSharedPtr>::iterator it = modes_.find(mode);
     if (it != modes_.end())
     {
       res = it->second;
@@ -54,7 +57,7 @@ ModeSharedPtr Motor402::allocMode(int8_t mode)
   return res;
 }
 
-bool Motor402::switchMode(int8_t mode)
+bool Motor402::switchMode(uint16_t mode)
 {
   if (mode == MotorBase::No_Mode)
   {
@@ -329,7 +332,7 @@ void Motor402::handleDiag()
 
 bool Motor402::handleInit()
 {
-  for (std::unordered_map<int8_t, AllocFuncType>::iterator it = mode_allocators_.begin();
+  for (std::unordered_map<uint16_t, AllocFuncType>::iterator it = mode_allocators_.begin();
        it != mode_allocators_.end(); ++it)
   {
     (it->second)();
