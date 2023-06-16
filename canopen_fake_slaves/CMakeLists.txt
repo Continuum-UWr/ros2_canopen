@@ -50,13 +50,11 @@ ament_target_dependencies(
   ${dependencies}
 )
 
-
-
 install(TARGETS basic_slave_node
   DESTINATION lib/${PROJECT_NAME})
 
-  install(TARGETS cia402_slave_node
-  DESTINATION lib/${PROJECT_NAME})
+install(TARGETS cia402_slave_node
+DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY
   launch/
@@ -67,8 +65,6 @@ install(DIRECTORY
   config/
   DESTINATION share/${PROJECT_NAME}/config/
 )
-
-
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>canopen_core</name>
-  <version>0.0.1</version>
+  <version>0.2.0</version>
   <description>Core ros2_canopen functionalities such as DeviceContainer and master</description>
   <maintainer email="christoph.hellmann.santos@ipa.fraunhofer.de">christoph</maintainer>
   <license>Apache-2.0</license>
@@ -16,6 +16,7 @@
   <depend>rclcpp_components</depend>
   <depend>rclcpp_lifecycle</depend>
   <depend>yaml_cpp_vendor</depend>
+  <depend>boost</depend>
 
   <test_depend>ament_lint_auto</test_depend>
 

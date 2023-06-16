@@ -29,12 +29,13 @@ add_library(
   src/canopen_proxy_controller.cpp
   src/cia402_device_controller.cpp
 )
-target_include_directories(
-  ${PROJECT_NAME}
-  PRIVATE
-  include
+
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+target_include_directories(${PROJECT_NAME} PUBLIC
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
 )
-ament_target_dependencies(${PROJECT_NAME} ${THIS_PACKAGE_INCLUDE_DEPENDS})
+ament_target_dependencies(${PROJECT_NAME} PUBLIC ${THIS_PACKAGE_INCLUDE_DEPENDS})
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE "CANOPEN_PROXY_CONTROLLER_BUILDING_DLL" "_USE_MATH_DEFINES")
 pluginlib_export_plugin_description_file(controller_interface canopen_ros2_controllers.xml)
@@ -45,6 +46,7 @@ install(
   RUNTIME DESTINATION bin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
+  INCLUDES DESTINATION include
 )
 
 install(

@@ -4,7 +4,7 @@ package_name = "canopen_utils"
 
 setup(
     name=package_name,
-    version="0.0.0",
+    version="0.2.0",
     packages=[package_name],
     data_files=[
         ("share/ament_index/resource_index/packages", ["resource/" + package_name]),
@@ -18,6 +18,9 @@ setup(
     license="Apache-2.0",
     tests_require=["pytest"],
     entry_points={
-        "console_scripts": ["cyclic_tester = canopen_utils.cyclic_tester:main"],
+        "console_scripts": [
+            "cyclic_tester = canopen_utils.cyclic_tester:main",
+            "simple_tester = canopen_utils.simple_rpdo_tpdo_tester:main",
+        ],
     },
 )

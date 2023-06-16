@@ -196,6 +196,10 @@ bool DeviceContainer::load_master()
   RCLCPP_INFO(this->get_logger(), "Loading Master Configuration.");
   std::vector<std::string> devices;
   uint32_t count = this->config_->get_all_devices(devices);
+  if (count == 0)
+  {
+    return false;
+  }
   bool master_found = false;
 
   // Find master in configuration
@@ -250,6 +254,10 @@ bool DeviceContainer::load_drivers()
   RCLCPP_INFO(this->get_logger(), "Loading Driver Configuration.");
   std::vector<std::string> devices;
   uint32_t count = this->config_->get_all_devices(devices);
+  if (count == 0)
+  {
+    return false;
+  }
 
   for (auto it = devices.begin(); it != devices.end(); it++)
   {
@@ -362,6 +370,7 @@ void DeviceContainer::init(
   bus_config_ = bus_config;
 
   RCLCPP_INFO(this->get_logger(), "Starting Device Container with:");
+  RCLCPP_INFO(this->get_logger(), "\t can_interface_name %s", can_interface_name_.c_str());
   RCLCPP_INFO(this->get_logger(), "\t master_config %s", dcf_txt_.c_str());
   RCLCPP_INFO(this->get_logger(), "\t bus_config %s", bus_config_.c_str());
 
